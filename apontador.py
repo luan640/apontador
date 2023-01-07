@@ -3,17 +3,13 @@ from selenium.webdriver.common.keys import Keys
 import pandas as pd
 import time
 from datetime import datetime
-import os
 import numpy as np
-import glob
-import os.path
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from sys import exit
 import gspread
 from selenium.webdriver.common.action_chains import ActionChains
-from gspread_dataframe import get_as_dataframe
 
 
 #link1 = "http://192.168.3.141/"
@@ -92,7 +88,7 @@ for i in range(len(serra)):
 i = None
 
 #filtrando pecas que não foram apontadas
-serra_filter = serra.loc[(serra.Status) == '']
+serra_filter = serra.loc[(serra.Status) != 'Apontada!']
 
 #inserindo 0 antes do código da peca
 serra_filter['Peca'] = serra_filter['Peca'].astype(str)
@@ -134,10 +130,11 @@ for i in range(len(serra)):
         #mudando iframe
         iframe1 = WebDriverWait(nav, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[4]/div/div[2]/iframe')))
         nav.switch_to.frame(iframe1)
-
+        time.sleep(3)
+        
         #Insert
         WebDriverWait(nav, 2).until(EC.element_to_be_clickable((By.XPATH, '/html/body/table/tbody/tr[1]/td/div/form/table/thead/tr[1]/td[1]/table/tbody/tr/td[2]/table/tbody/tr/td[2]/div'))).click()
-        time.sleep(2)
+        time.sleep(5)
 
         #classe
         try:
