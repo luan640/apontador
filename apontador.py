@@ -150,16 +150,15 @@ def preenchendo(data, pessoa, peca, qtde, wks1, c, i):
     time.sleep(2)
     WebDriverWait(nav, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/table/tbody/tr[1]/td/div/form/table/tbody/tr[1]/td[1]/table/tbody/tr[" + str(c) + "]/td[10]/div/input"))).send_keys(peca)
     
+    #processo
     WebDriverWait(nav, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/table/tbody/tr[1]/td/div/form/table/tbody/tr[1]/td[1]/table/tbody/tr[" + str(c) + "]/td[12]/div/div"))).click()
     time.sleep(5)
-
-    #processo
     WebDriverWait(nav, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/table/tbody/tr[1]/td/div/form/table/tbody/tr[1]/td[1]/table/tbody/tr[" + str(c) + "]/td[12]/div/input"))).send_keys('S C Serras')
-    WebDriverWait(nav, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/table/tbody/tr[1]/td/div/form/table/tbody/tr[1]/td[1]/table/tbody/tr[" + str(c) + "]/td[18]/div/div"))).click()
     time.sleep(2)
 
     #quantidade
     WebDriverWait(nav, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/table/tbody/tr[1]/td/div/form/table/tbody/tr[1]/td[1]/table/tbody/tr[" + str(c) + "]/td[18]/div/div"))).click()
+    time.sleep(2)
     WebDriverWait(nav, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/table/tbody/tr[1]/td/div/form/table/tbody/tr[1]/td[1]/table/tbody/tr[" + str(c) + "]/td[18]/div/input"))).send_keys(qtde)
 
     time.sleep(2)
@@ -168,22 +167,7 @@ def preenchendo(data, pessoa, peca, qtde, wks1, c, i):
 
     time.sleep(2)
 
-    element = WebDriverWait(nav, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/table/tbody/tr[1]/td/div/form/table/thead/tr[1]/td[1]/table/tbody/tr/td[2]/table/tbody/tr/td[4]/div")))
-  
-    # create action chain object
-    action = ActionChains(nav)
-    
-    # double click the item
-    action.double_click(on_element = element).perform()
-    
-    #ActionChains(nav).key_down(Keys.CONTROL).send_keys('m').key_up(Keys.CONTROL).perform()
-    #time.sleep(2)
-    #ActionChains(nav).key_down(Keys.CONTROL).send_keys('m').key_up(Keys.CONTROL).perform()
-    #time.sleep(12)
-    
-    #innovaro real
-    #WebDriverWait(nav, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/table/tbody/tr[1]/td/div/form/table/thead/tr[1]/td[1]/table/tbody/tr/td[2]/table/tbody/tr/td[4]/div'))).click()
-    #time.sleep(2)
+    WebDriverWait(nav, 10).until(EC.element_to_be_clickable((By.XPATH, "/html/body/table/tbody/tr[1]/td/div/form/table/thead/tr[1]/td[1]/table/tbody/tr/td[2]/table/tbody/tr/td[4]/div"))).click()
 
     try:
 
@@ -200,25 +184,30 @@ def preenchendo(data, pessoa, peca, qtde, wks1, c, i):
         time.sleep(2)
         WebDriverWait(nav, 10).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[3]/div/table/tbody/tr/td[1]/table/tbody/tr/td[4]/span/div'))).click()
         time.sleep(2)
-
-        c = 1
+        
+        c = 3
 
     except:
         wks1.update('D' + str(i+2), 'Apontada!')
-        c = c+2
+        print('deu bom')
+        c = c + 2
+
+    print(c)
+    return(c)
 
 c = 3
 
 i = 0
 
-for i in range(len(serra)):
+for i in range(0,20):#len(serra)):
 
     try:
-        peca = serra_filter['Peca'][i]
-        qtde = str(serra_filter['Qtde'][i])
+        peca = '028681'#serra_filter['Peca'][i]
+        qtde = 1 #str(serra_filter['Qtde'][i])
         data = serra_filter['Data'][i]
         pessoa = '4054'
-        preenchendo(data,pessoa,peca,qtde,wks1, c, i)
-
+        c = preenchendo(data,pessoa,peca,qtde,wks1, c, i)
+        #c = c+2
+        print(c)
     except:
-        c = 1
+        c = 3
